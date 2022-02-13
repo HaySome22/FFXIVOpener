@@ -141,7 +141,7 @@ const skillsBlacklist = [
     7867, //iaijutsu
     16483, //Tsubame-Gaeshi
     16484, //kaeshi higanbana
-    7483,7484,7485,25780 //sam aoe
+    7483,7484,7485,7491,7496,25780,25779 //sam aoe
 ];
 
 const skillsWhitelist = [

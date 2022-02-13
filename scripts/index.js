@@ -116,14 +116,13 @@ function jobSelectBackgroundColor(role) {
     }
 }
 
-const samOrder = {
+const samGcdOrder = {
     'Hakaze': 1,
     'Shifu': 2,
     'Kasha': 3,
     'Jinpu': 4,
     'Gekko': 5,
     'Yukikaze': 6,
-    'Enpi': 7,
     'Midare Setsukka': 100,
     'Kaeshi: Setsugekka': 101,
     'Higanbana': 102,
@@ -131,6 +130,21 @@ const samOrder = {
     'Kaeshi: Namikiri': 104,
     'Tenka Goken': 105,
     'Kaeshi: Goken': 106,
+    'Enpi': 999,
+}
+
+const samOgcdOrder = {
+    'Ikishoten': 1,
+    'Hissatsu: Kaiten': 2,
+    'Meikyo Shisui': 3,
+    'Hagakure': 4,
+    'Meditate': 5,
+    'Hissatsu: Senei': 100,
+    'Hissatsu: Shinten': 101,
+    'Shoha': 102,
+    'Hissatsu: Gyoten': 200,
+    'Hissatsu: Yaten': 201,
+    'Third Eye': 300,
 }
 
 function sortJobSkills(jobID) {
@@ -172,8 +186,11 @@ function sortJobSkills(jobID) {
     });
 
     if (jobID == 34) {
-        gcds.sort((a,b) => samOrder[a.Name] - samOrder[b.Name])
+        gcds.sort((a,b) => samGcdOrder[a.Name] - samGcdOrder[b.Name]);
+        ogcds.sort((a,b) => samOgcdOrder[a.Name] - samOgcdOrder[b.Name])
     }
+
+    ogcds.forEach(skill => console.log(skill.Name));
 
     gcds.forEach(skill => addImageToList("GCD-List", skill, false, true));
     ogcds.forEach(skill => addImageToList("OGCD-List", skill, false, false));
