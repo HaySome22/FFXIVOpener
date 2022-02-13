@@ -21,6 +21,8 @@ const gcdOverrides = [
     16484, //kaeshi higanbana
     16485, //kaeshi goken
     16486, //kaeshi setsugekka
+    25782, //kaeshi ogi
+    25781, //ogi
     // MCH
     7418, //flamethrower
     // DNC
@@ -136,6 +138,10 @@ const globalSkillsList = [
 const skillsBlacklist = [
     18805, 18806, 18807, //NIN Mudras with "bad" Skill Description
     19238, 19239, 19240, //BLU Aetherial Mimickery with "bad" Skill Desc
+    7867, //iaijutsu
+    16483, //Tsubame-Gaeshi
+    16484, //kaeshi higanbana
+    7483,7484,7485,25780 //sam aoe
 ];
 
 const skillsWhitelist = [
@@ -178,6 +184,8 @@ const skillsWhitelist = [
     16484, //Kaeshi: Higanbana
     16485, //Kaeshi: Goken
     16486, //Kaeshi: Setsugekka
+    25782, //kaeshi ogi
+    25781, //ogi
     // MCH
     16766, //Detonator
     // DNC

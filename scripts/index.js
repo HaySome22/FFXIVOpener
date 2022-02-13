@@ -65,15 +65,35 @@ document.addEventListener("DOMContentLoaded", () => {
     new Sortable(document.getElementById("Rotation-Buffs"));
 });
 
+function paginated_fetch(
+    url = is_required("url"), // Improvised required argument in JS
+    page = 1,
+    previousResponse = []
+  ) {
+    return fetch(`${url}&page=${page}`) // Append the page number to the base URL
+      .then(response => response.json())
+      .then(newResponse => {
+        newResponse = newResponse.Results;
+        const response = [...previousResponse, ...newResponse]; // Combine the two arrays
+  
+        if (newResponse.length !== 0) {
+          page++;
+  
+          return paginated_fetch(url, page, response);
+        }
+  
+        return response;
+      });
+    }
+
 function getJobSkills(jobID) {
     let JOB = jobList.find(x => x.ID === jobID).Abbreviation;
-    let url = `https://xivapi.com/search?indexes=Action&filters=ClassJobCategory.${JOB}=1,IsPvP=0,ActionCategory.ID%3E=2,ActionCategory.ID%3C=4&columns=ID,Icon,Name,Url,ActionCombo.ID,Description,Cast100ms,Recast100ms,Range,EffectRange,PrimaryCostType,PrimaryCostValue,SecondaryCostType,SecondaryCostValue,CastType,ActionCategory,ClassJobCategoryTargetID,IsRoleAction,IsPlayerAction&Limit=250&page=`;
+    let url = `https://xivapi.com/search?indexes=Action&filters=ClassJobCategory.${JOB}=1,IsPvP=0,ActionCategory.ID%3E=2,ActionCategory.ID%3C=4&columns=ID,Icon,Name,Url,ActionCombo.ID,Description,Cast100ms,Recast100ms,Range,EffectRange,PrimaryCostType,PrimaryCostValue,SecondaryCostType,SecondaryCostValue,CastType,ActionCategory,ClassJobCategoryTargetID,IsRoleAction,IsPlayerAction&Limit=250`;
 
-    fetch(url)
-        .then((response) => response.json())
-        .then(function (json) {
-            jobSkills[jobID] = json.Results.filter(action => action.IsRoleAction === 0);
-            roleSkills[jobID] = json.Results.filter(action => action.IsRoleAction === 1);
+    paginated_fetch(url)
+        .then(function (arr) {
+            jobSkills[jobID] = arr.filter(action => action.IsRoleAction === 0);
+            roleSkills[jobID] = arr.filter(action => action.IsRoleAction === 1);
             clearDivs();
             sortJobSkills(jobID);
             currentJobId = jobID;
@@ -96,7 +116,27 @@ function jobSelectBackgroundColor(role) {
     }
 }
 
+const samOrder = {
+    'Hakaze': 1,
+    'Shifu': 2,
+    'Kasha': 3,
+    'Jinpu': 4,
+    'Gekko': 5,
+    'Yukikaze': 6,
+    'Enpi': 7,
+    'Midare Setsukka': 100,
+    'Kaeshi: Setsugekka': 101,
+    'Higanbana': 102,
+    'Ogi Namikiri': 103,
+    'Kaeshi: Namikiri': 104,
+    'Tenka Goken': 105,
+    'Kaeshi: Goken': 106,
+}
+
 function sortJobSkills(jobID) {
+    let gcds = [];
+    let ogcds = [];
+
     jobSkills[jobID].forEach((skill) => {
         // If skill is in blacklist, skip it
         if (skillsBlacklist.includes(skill.ID)) { return; }
@@ -106,26 +146,38 @@ function sortJobSkills(jobID) {
             if (skill.ActionCategory.Name === "Spell" || skill.ActionCategory.Name === "Weaponskill") {
                 // If it's not in the OGCD overrite or blacklist => GCD
                 if (!ogcdOverrides.includes(skill.ID) && !skillsBlacklist.includes(skill.ID)) {
-                    addImageToList("GCD-List", skill, false, true);
+                    // addImageToList("GCD-List", skill, false, true);
+                    gcds.push(skill);
                 }
                 // If it's in the OGCD override => OGCD
                 else if (ogcdOverrides.includes(skill.ID) && !skillsBlacklist.includes(skill.ID)) {
-                    addImageToList("OGCD-List", skill, false, false);
+                    // addImageToList("OGCD-List", skill, false, false);
+                    ogcds.push(skill);
                 }
             }
             // If it's an ability
             else if (skill.ActionCategory.Name === "Ability") {
                 // If it's not in the GCD overrite or blacklist => OGCD
                 if (!gcdOverrides.includes(skill.ID) && !skillsBlacklist.includes(skill.ID)) {
-                    addImageToList("OGCD-List", skill, false, false);
+                    // addImageToList("OGCD-List", skill, false, false);
+                    ogcds.push(skill);
                 }
                 // If it's in the GCD override => GCD
                 else if (gcdOverrides.includes(skill.ID) && !skillsBlacklist.includes(skill.ID)) {
-                    addImageToList("GCD-List", skill, false, true);
+                    // addImageToList("GCD-List", skill, false, true);
+                    gcds.push(skill);
                 }
             }
         }
     });
+
+    if (jobID == 34) {
+        gcds.sort((a,b) => samOrder[a.Name] - samOrder[b.Name])
+    }
+
+    gcds.forEach(skill => addImageToList("GCD-List", skill, false, true));
+    ogcds.forEach(skill => addImageToList("OGCD-List", skill, false, false));
+
     roleSkills[jobID].forEach((skill) => {
         if (skill.ActionCategory.Name === "Ability") {
             addImageToList("Role-Skills-List", skill, false, false);
