@@ -147,6 +147,30 @@ const samOgcdOrder = {
     'Third Eye': 300,
 }
 
+const mnkGcdOrder = {
+    'Dragon Kick': 1,
+    'Twinsnake': 2,
+    'Bootshine': 3,
+    'True Strike': 4,
+    'Snap Punch': 5,
+    'Demolish': 6,
+    'Elixir Field': 100,
+    'Rising Phoenix': 101,
+    'Phantom Rush': 102,
+    'Six-sided star': 999,
+}
+
+const mnkOgcdOrder = {
+    'Riddle of Fire': 1,
+    'Brotherhood': 2,
+    'Perfect Balance': 3,
+    'Riddle of Wind': 4,
+    'Mantra': 5,
+    'Riddle of Earth': 100,
+    'the Forbidden Chakra': 200,
+    'Thunderclap': 201,
+}
+
 function sortJobSkills(jobID) {
     let gcds = [];
     let ogcds = [];
@@ -188,6 +212,10 @@ function sortJobSkills(jobID) {
     if (jobID == 34) {
         gcds.sort((a,b) => samGcdOrder[a.Name] - samGcdOrder[b.Name]);
         ogcds.sort((a,b) => samOgcdOrder[a.Name] - samOgcdOrder[b.Name])
+    }
+    else if (jobID == 20) {
+        gcds.sort((a,b) => mnkGcdOrder[a.Name] - mnkGcdOrder[b.Name]);
+        ogcds.sort((a,b) => mnkOgcdOrder[a.Name] - mnkOgcdOrder[b.Name])
     }
 
     ogcds.forEach(skill => console.log(skill.Name));

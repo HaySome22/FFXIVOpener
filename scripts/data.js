@@ -163,6 +163,9 @@ const skillsWhitelist = [
     7445, //Lady
     // MNK
     3547, //Forbidden Chacra
+    3545, //EF
+    25768, //RP
+    25769, //PR
     // DRG
     7400, //Nastrond
     16479, //Raiden Thrust
