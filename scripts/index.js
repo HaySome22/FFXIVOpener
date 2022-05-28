@@ -149,7 +149,7 @@ const samOgcdOrder = {
 
 const mnkGcdOrder = {
     'Dragon Kick': 1,
-    'Twinsnake': 2,
+    'Twin Snakes': 2,
     'Bootshine': 3,
     'True Strike': 4,
     'Snap Punch': 5,
@@ -157,7 +157,7 @@ const mnkGcdOrder = {
     'Elixir Field': 100,
     'Rising Phoenix': 101,
     'Phantom Rush': 102,
-    'Six-sided star': 999,
+    'Six-sided Star': 200,
 }
 
 const mnkOgcdOrder = {
@@ -210,12 +210,12 @@ function sortJobSkills(jobID) {
     });
 
     if (jobID == 34) {
-        gcds.sort((a,b) => samGcdOrder[a.Name] - samGcdOrder[b.Name]);
-        ogcds.sort((a,b) => samOgcdOrder[a.Name] - samOgcdOrder[b.Name])
+        gcds.sort((a,b) => sortSkill(samGcdOrder, a, b));
+        ogcds.sort((a,b) => sortSkill(samOgcdOrder, a, b))
     }
     else if (jobID == 20) {
-        gcds.sort((a,b) => mnkGcdOrder[a.Name] - mnkGcdOrder[b.Name]);
-        ogcds.sort((a,b) => mnkOgcdOrder[a.Name] - mnkOgcdOrder[b.Name])
+        gcds.sort((a,b) => sortSkill(mnkGcdOrder, a, b));
+        ogcds.sort((a,b) => sortSkill(mnkOgcdOrder, a, b))
     }
 
     ogcds.forEach(skill => console.log(skill.Name));
@@ -254,6 +254,13 @@ function sortJobSkills(jobID) {
             addImageToList("Global-Skills-List", skill, false, true);
         }
     });
+}
+
+function sortSkill(sortMap, a, b) {
+    const defaultSortValue = 9999;
+    aValue = sortMap[a.Name] || defaultSortValue;
+    bValue = sortMap[b.Name] || defaultSortValue;
+    return aValue - bValue;
 }
 
 function addImageToList(dest, skill, isLocalImg, isGCD) {
