@@ -175,7 +175,7 @@ const drgGcdOrder = {
     'True Thrust': 1,
     'Raiden Thrust': 2,
     'Vorpal Thrust': 3,
-    'Heavens\' Thrust': 34,
+    'Heavens\' Thrust': 4,
     'Disembowel': 5,
     'Chaotic Spring': 6,
     'Fang and Claw': 7,
