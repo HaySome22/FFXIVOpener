@@ -171,6 +171,34 @@ const mnkOgcdOrder = {
     'Thunderclap': 201,
 }
 
+const drgGcdOrder = {
+    'True Thrust': 1,
+    'Raiden Thrust': 2,
+    'Vorpal Thrust': 3,
+    'Heavens\' Thrust': 34,
+    'Disembowel': 5,
+    'Chaotic Spring': 6,
+    'Fang and Claw': 7,
+    'Wheeling Thrust': 8,
+    'Piercing Talon': 99,
+}
+
+const drgOgcdOrder = {
+    'Lance Charge': 1,
+    'Dragon Sight': 2,
+    'Battle Litany': 3,
+    'Life Surge': 10,
+    'High Jump': 20,
+    'Mirage Dive': 21,
+    'Spineshatter Dive': 22,
+    'Dragonfire Dive': 23,
+    'Geirskogul': 30,
+    'Nastrond': 31,
+    'Stardiver': 32,
+    'Wyrmwind Thrust': 40,
+    'Elusive Jump:': 99,
+}
+
 function sortJobSkills(jobID) {
     let gcds = [];
     let ogcds = [];
@@ -216,6 +244,10 @@ function sortJobSkills(jobID) {
     else if (jobID == 20) {
         gcds.sort((a,b) => sortSkill(mnkGcdOrder, a, b));
         ogcds.sort((a,b) => sortSkill(mnkOgcdOrder, a, b))
+    }
+    else if (jobID == 22) {
+        gcds.sort((a,b) => sortSkill(drgGcdOrder, a, b));
+        ogcds.sort((a,b) => sortSkill(drgOgcdOrder, a, b))
     }
 
     ogcds.forEach(skill => console.log(skill.Name));
