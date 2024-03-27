@@ -39,6 +39,8 @@ const gcdOverrides = [
     16196, //Quadruple technical finish
     // SMN
     25830 //Rekindle
+    // BLM
+    25797, //Paradox
 ];
 // Thanks to https://github.com/Rawrington/SkillDisplay/blob/master/src/Action.js
 const ogcdOverrides = [
