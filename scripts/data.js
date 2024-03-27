@@ -38,7 +38,7 @@ const gcdOverrides = [
     16195, //Triple technical finish
     16196, //Quadruple technical finish
     // SMN
-    25830 //Rekindle
+    25830, //Rekindle
     // BLM
     25797, //Paradox
 ];
