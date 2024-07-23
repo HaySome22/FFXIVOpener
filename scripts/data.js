@@ -51,10 +51,16 @@ const ogcdOverrides = [
 ];
 
 const skillsBlacklist = [
+    // NIN
     "Assassinate",
     "Mug",
     "Trick Attack",
     "Ninjutsu",
+
+    // SAM
+    "Iaijutsu",
+    "Tsubame-gaeshi",
+    
 ]
 
 const globalSkillsList = [
