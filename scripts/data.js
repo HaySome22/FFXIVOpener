@@ -3,63 +3,44 @@ const gcdOverrides = [
     // This list is for Abilities that ARE GCD
 
     // NIN
-    2259, 18805, //ten
-    2261, 18806, //chi
-    2263, 18807, //jin
-    2265, 18873, 18874, 18875, //fuma shurikan
-    2266, 18876, //katon
-    2267, 18877, //raiton
-    2268, 18878, //hyoton
-    2269, 18879, //huton
-    2270, 18880, //doton
-    2271, 18881, //suiton
+    2259, //ten
+    2261, //chi
+    2263, //jin
+    2265, //fuma shurikan
+    2266, //katon
+    2267, //raiton
+    2269, //huton
+    2270, //doton
+    2271, //suiton
     2272, //rabbit medium
     16491, //goka meykakku
     16492, //hyosho ranryu
+
     // SAM
-    16483, //Tsubame-Gaeshi
-    16484, //kaeshi higanbana
+    16483, //tsubame
     16485, //kaeshi goken
     16486, //kaeshi setsugekka
-    // MCH
-    7418, //flamethrower
-    // DNC
-    15997, //standard step
-    15998, 15999, 16000, 16001, //technical step
-    16002, //Step actions
-    16003, //Standard finish
-    16004, //Technical finish
-    16191, //Single standard finish
-    16192, //Double standard finish
-    16193, //Single technical finish
-    16194, //Double technical finish
-    16195, //Triple technical finish
-    16196, //Quadruple technical finish
-    // SMN
-    25830 //Rekindle
+    36965, //tendo goken
+    36966, //tendo midare
+    36968, //tendo kaeshi
+
+    // MNK
+    25768, //rising phoenix
+    25769, //phantom rush
+    36948, //elixir burst
+
+    // RPR
+    24388, //harvest moon
+    36970, //executioner's gibbet
+    36971, //executioner's gallows
+    36973, //perfectio
 ];
 // Thanks to https://github.com/Rawrington/SkillDisplay/blob/master/src/Action.js
 const ogcdOverrides = [
-    // This list if for Spells and Weaponskills that ARE OGCD
-
-    // BRD
-    114, //bard MB
-    116, //bard AP
-    3559, //bard WM
-    
-    // SMN
-    3582, //Deathflare
-    25823, //Ruby Rite
-    25824, //Topaz Rite
-    25825, //Emerald Rite
-    25831, //Summon Phoenix
-    25832, //Ruby Catastrophe
-    25833, //Topaz Catastrophe
-    25834, //Emerald Catastrophe
-    25835, //Crimson Cyclone
-    25836, //Mountain Buster
-    25837, //Slipstream
-    25885, //Crimson Strike
+    // RPR
+    24390, //unveiled gibbet
+    24391, //unveiled gallows
+    36969, //sacrificium
 ];
 
 const globalSkillsList = [
@@ -131,104 +112,4 @@ const globalSkillsList = [
         Name: "Tincture of Mind",
         Description: "This diluted brew temporarily increases mind for twice the duration of similar potions.\n\n\n\n<span style=\"color:#00cc22;\">Duration:</span> 30s",
     },
-];
-
-const skillsBlacklist = [
-    18805, 18806, 18807, //NIN Mudras with "bad" Skill Description
-    19238, 19239, 19240, //BLU Aetherial Mimickery with "bad" Skill Desc
-];
-
-const skillsWhitelist = [
-    // WAR
-    16463, //Chaotic Cyclone
-    16465, //Inner Chaos
-    // GNB
-    16156, //Jugular Rip
-    16157, //Abdomen Tear
-    16158, //Eye Gouge
-    // AST
-    4401, //Balance
-    4402, //Arrow
-    4403, //Spear
-    4404, //Bole
-    4405, //Ewer
-    4406, //Spire
-    7444, //Lord
-    7445, //Lady
-    // MNK
-    3547, //Forbidden Chacra
-    // DRG
-    7400, //Nastrond
-    16479, //Raiden Thrust
-    // NIN
-    2265, //Fuma
-    2266, //Katon
-    2267, //Raiton
-    2268, //Hyoton
-    2269, //Huton
-    2270, //Doton
-    2271, //Suiton
-    2272, //Rabbit Medium
-    16491, //goka meykakku
-    16492, //hyosho ranryu
-    // SAM
-    7487, //Midare
-    7488, //Tenka Goken
-    7489, //Higanbana
-    16484, //Kaeshi: Higanbana
-    16485, //Kaeshi: Goken
-    16486, //Kaeshi: Setsugekka
-    // MCH
-    16766, //Detonator
-    // DNC
-    15999, //Emboite
-    16000, //Entrechat
-    16001, //Jete
-    16002, //Pirouette
-    16003, //Standard Finish
-    16004, //Technical Finish
-    18073, //Ending
-    // SMN
-    3582, //Deathflare
-    7426, //Ruin IV
-    16513, //Firebird Trance
-    16514, //Fountain of Fire
-    16515, //Brand of Purgatory
-    16516, //Enkindle Phoenix
-    //16517, //Everlasting Flight //Removed with 6.0?
-    16791, //Assault I: Glittering Topaz	Action		
-    16792, //Assault II: Shining Topaz	Action		
-    16793, //Assault I: Downburst	Action		
-    16794, //Assault II: Glittering Emerald	Action		
-    16795, //Assault I: Earthen Armor	Action		
-    16796, //Assault II: Mountain Buster	Action		
-    16797, //Assault I: Aerial Slash	Action		
-    16798, //Assault II: Slipstream	Action		
-    16799, //Assault I: Crimson Cyclone	Action		
-    16800, //Assault II: Flaming Crush
-    25823, //Ruby Rite
-    25824, //Topaz Rite
-    25825, //Emerald Rite
-    25830, //Rekindle
-    25831, //Summon Phoenix
-    25832, //Ruby Catastrophe
-    25833, //Topaz Catastrophe
-    25834, //Emerald Catastrophe
-    25835, //Crimson Cyclone
-    25836, //Mountain Buster
-    25837, //Slipstream
-    25885, //Crimson Strike
-    // RDM
-    7527, //Enchanted Ripost
-    7528, //Enchanted Zwerchhau
-    7529, //Enchanted Redoublement
-    7530, //Enchanted Moulinet
-    7525, //Verflare
-    7526, //Verfire
-    16528, //Enchanted Reprise
-    16530, //Scorch
-    // BLU
-    23268, //White Death
-    23274, //Divine Cataract (Chelonian Gate Second Hit)
-    23289, //PHantom Flurry (Second Hit)
 ];

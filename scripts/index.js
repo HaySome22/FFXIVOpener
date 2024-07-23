@@ -5,6 +5,7 @@ let currentJobId = 0;
 let MoxSetting = false;
 
 const xivapi_request = "https://xivapi.com/ClassJob?columns=ID,Name,Icon,ClassJobCategory.Name,ClassJobCategory.ID,Role,IsLimitedJob,ItemSoulCrystalTargetID,Abbreviation";
+const enabled_jobs = ["MNK", "DRG", "NIN", "SAM", "RPR"];
 
 document.addEventListener("DOMContentLoaded", () => {
     fetch(xivapi_request)
@@ -27,7 +28,9 @@ document.addEventListener("DOMContentLoaded", () => {
                     job.Role = 6;
 
                 // Finally, push everything to the list
-                jobList.push(job);
+                if (enabled_jobs.includes(job.Abbreviation)) {
+                    jobList.push(job);
+                }
             });
 
             let roleSortOrder = [1, 4, 2, 3, 6, 5]; // 1 Tank, 4 Healer, 2 Melee, 3 Ranged, 6 Custom Ranged Magic, 5 Custom Limited Job 
@@ -65,22 +68,43 @@ document.addEventListener("DOMContentLoaded", () => {
     new Sortable(document.getElementById("Rotation-Buffs"));
 });
 
-function getJobSkills(jobID) {
-    let JOB = jobList.find(x => x.ID === jobID).Abbreviation;
-    let url = `https://xivapi.com/search?indexes=Action&filters=ClassJobCategory.${JOB}=1,IsPvP=0,ActionCategory.ID%3E=2,ActionCategory.ID%3C=4&columns=ID,Icon,Name,Url,ActionCombo.ID,Description,Cast100ms,Recast100ms,Range,EffectRange,PrimaryCostType,PrimaryCostValue,SecondaryCostType,SecondaryCostValue,CastType,ActionCategory,ClassJobCategoryTargetID,IsRoleAction,IsPlayerAction&Limit=250&page=`;
+function paginated_fetch(
+    url = is_required("url"), // Improvised required argument in JS
+    page = 1,
+    previousResponse = []
+) {
+    return fetch(`${url}&page=${page}`) // Append the page number to the base URL
+        .then(response => response.json())
+        .then(newResponse => {
+            newResponse = newResponse.Results;
+            const response = [...previousResponse, ...newResponse]; // Combine the two arrays
 
-    fetch(url)
-        .then((response) => response.json())
-        .then(function (json) {
-            jobSkills[jobID] = json.Results.filter(action => action.IsRoleAction === 0);
-            roleSkills[jobID] = json.Results.filter(action => action.IsRoleAction === 1);
-            clearDivs();
-            sortJobSkills(jobID);
-            currentJobId = jobID;
-        })
-        .catch(function (ex) {
-            console.log('parsing failed', ex)
-        })
+            if (newResponse.length !== 0) {
+                page++;
+
+                return paginated_fetch(url, page, response);
+            }
+
+            return response;
+        });
+}
+
+
+async function getJobSkills(jobID) {
+    let JOB = jobList.find(x => x.ID === jobID).Abbreviation;
+    let url = `https://xivapi.com/search?indexes=Action&filters=ClassJobCategory.${JOB}=1,IsPvP=0,ActionCategory.ID%3E=2,ActionCategory.ID%3C=4&columns=ID,Icon,Name,Url,ActionCombo.ID,Description,Cast100ms,Recast100ms,Range,EffectRange,PrimaryCostType,PrimaryCostValue,SecondaryCostType,SecondaryCostValue,CastType,ActionCategory,ClassJobCategoryTargetID,IsRoleAction,IsPlayerAction&Limit=250`;
+
+    try {
+        let arr = await paginated_fetch(url);
+        jobSkills[jobID] = arr.filter(action => action.IsRoleAction === 0);
+        roleSkills[jobID] = arr.filter(action => action.IsRoleAction === 1);
+    } catch (ex) {
+        console.log('parsing failed', ex);
+    }
+
+    clearDivs();
+    sortJobSkills(jobID);
+    currentJobId = jobID;
 }
 
 function jobSelectBackgroundColor(role) {
@@ -97,35 +121,25 @@ function jobSelectBackgroundColor(role) {
 }
 
 function sortJobSkills(jobID) {
+    gcds = {};
+    ogcds = {};
     jobSkills[jobID].forEach((skill) => {
-        // If skill is in blacklist, skip it
-        if (skillsBlacklist.includes(skill.ID)) { return; }
-        // If it's a player action or it's in the whitelist
-        if (skill.IsPlayerAction == "1" || skillsWhitelist.includes(skill.ID)) {
-            // If it's a spell or weaponskill
-            if (skill.ActionCategory.Name === "Spell" || skill.ActionCategory.Name === "Weaponskill") {
-                // If it's not in the OGCD overrite or blacklist => GCD
-                if (!ogcdOverrides.includes(skill.ID) && !skillsBlacklist.includes(skill.ID)) {
-                    addImageToList("GCD-List", skill, false, true);
-                }
-                // If it's in the OGCD override => OGCD
-                else if (ogcdOverrides.includes(skill.ID) && !skillsBlacklist.includes(skill.ID)) {
-                    addImageToList("OGCD-List", skill, false, false);
-                }
+        if (skill.IsPlayerAction == "1" || gcdOverrides.includes(skill.ID) || ogcdOverrides.includes(skill.ID)) {
+            if (skill.ActionCategory.Name === "Spell" || skill.ActionCategory.Name === "Weaponskill" || gcdOverrides.includes(skill.ID)) {
+                gcds[skill.Name] = skill;
             }
-            // If it's an ability
             else if (skill.ActionCategory.Name === "Ability") {
-                // If it's not in the GCD overrite or blacklist => OGCD
-                if (!gcdOverrides.includes(skill.ID) && !skillsBlacklist.includes(skill.ID)) {
-                    addImageToList("OGCD-List", skill, false, false);
+                if (gcdOverrides.includes(skill.ID)) {
+                    gcds[skill.Name] = skill;
                 }
-                // If it's in the GCD override => GCD
-                else if (gcdOverrides.includes(skill.ID) && !skillsBlacklist.includes(skill.ID)) {
-                    addImageToList("GCD-List", skill, false, true);
+                else {
+                    ogcds[skill.Name] = skill;
                 }
             }
         }
     });
+    Object.values(gcds).forEach(skill => addImageToList("GCD-List", skill, false, true));
+    Object.values(ogcds).forEach(skill => addImageToList("OGCD-List", skill, false, true));
     roleSkills[jobID].forEach((skill) => {
         if (skill.ActionCategory.Name === "Ability") {
             addImageToList("Role-Skills-List", skill, false, false);
