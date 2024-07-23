@@ -40,11 +40,22 @@ const gcdOverrides = [
 ];
 // Thanks to https://github.com/Rawrington/SkillDisplay/blob/master/src/Action.js
 const ogcdOverrides = [
+    // NIN
+    36960, //zesho meppo
+    36961, //tenri jindo
+
     // RPR
     24390, //unveiled gibbet
     24391, //unveiled gallows
     36969, //sacrificium
 ];
+
+const skillsBlacklist = [
+    "Assassinate",
+    "Mug",
+    "Trick Attack",
+    "Ninjutsu",
+]
 
 const globalSkillsList = [
     {

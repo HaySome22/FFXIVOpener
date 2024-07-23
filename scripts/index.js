@@ -124,6 +124,7 @@ function sortJobSkills(jobID) {
     gcds = {};
     ogcds = {};
     jobSkills[jobID].forEach((skill) => {
+        if (skillsBlacklist.includes(skill.Name)) return;
         if (skill.IsPlayerAction == "1" || gcdOverrides.includes(skill.ID) || ogcdOverrides.includes(skill.ID)) {
             if (skill.ActionCategory.Name === "Spell" || skill.ActionCategory.Name === "Weaponskill" || gcdOverrides.includes(skill.ID)) {
                 gcds[skill.Name] = skill;
