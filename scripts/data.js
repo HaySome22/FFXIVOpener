@@ -61,6 +61,13 @@ const skillsBlacklist = [
     "Iaijutsu",
     "Tsubame-gaeshi",
     
+    // DRG
+    "Vorpal Thrust",
+    "Full Thrust",
+    "Disembowel",
+    "Chaos Thrust",
+    "Jump",
+    
 ]
 
 const globalSkillsList = [
