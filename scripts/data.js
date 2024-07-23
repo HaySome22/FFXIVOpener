@@ -60,6 +60,7 @@ const skillsBlacklist = [
     // SAM
     "Iaijutsu",
     "Tsubame-gaeshi",
+    "Third Eye",
     
     // DRG
     "Vorpal Thrust",
@@ -68,6 +69,33 @@ const skillsBlacklist = [
     "Chaos Thrust",
     "Jump",
     
+]
+
+const aoeSkills = [
+    // NIN
+    "Death Blossom",
+    "Katon",
+    "Doton",
+    "Hakke Mujinsatsu",
+    "Goka Mekkyaku",
+    "Hellfrog Medium",
+
+    // SAM
+    "Fuga",
+    "Mangetsu",
+    "Oka",
+    "Fuko",
+    "Tenka Goken",
+    "Kaeshi: Goken",
+    "Tendo Goken",
+    "Hissatsu: Kyuten",
+    "Hissatsu: Guren",
+
+    // DRG
+    "Doom Spike",
+    "Sonic Thrust",
+    "Coerthan Torment",
+
 ]
 
 const globalSkillsList = [

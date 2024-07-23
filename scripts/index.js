@@ -123,14 +123,23 @@ function jobSelectBackgroundColor(role) {
 function sortJobSkills(jobID) {
     gcds = {};
     ogcds = {};
+    aoe = {};
     jobSkills[jobID].forEach((skill) => {
         if (skillsBlacklist.includes(skill.Name)) return;
         if (skill.IsPlayerAction == "1" || gcdOverrides.includes(skill.ID) || ogcdOverrides.includes(skill.ID)) {
             if (skill.ActionCategory.Name === "Spell" || skill.ActionCategory.Name === "Weaponskill" || gcdOverrides.includes(skill.ID)) {
-                gcds[skill.Name] = skill;
+                if (aoeSkills.includes(skill.Name)) {
+                    aoe[skill.Name] = skill;
+                }
+                else {
+                    gcds[skill.Name] = skill;
+                }
             }
             else if (skill.ActionCategory.Name === "Ability") {
-                if (gcdOverrides.includes(skill.ID)) {
+                if (aoeSkills.includes(skill.Name)) {
+                    aoe[skill.Name] = skill;
+                }
+                else if (gcdOverrides.includes(skill.ID)) {
                     gcds[skill.Name] = skill;
                 }
                 else {
