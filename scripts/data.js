@@ -17,6 +17,9 @@ const gcdOverrides = [
     16492, //hyosho ranryu
 
     // SAM
+    7487, //midare
+    7488, //tenka goken
+    7489, //higanbana
     16483, //tsubame
     16485, //kaeshi goken
     16486, //kaeshi setsugekka
