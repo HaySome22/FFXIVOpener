@@ -149,7 +149,7 @@ function sortJobSkills(jobID) {
         }
     });
     Object.values(gcds).forEach(skill => addImageToList("GCD-List", skill, false, true));
-    Object.values(ogcds).forEach(skill => addImageToList("OGCD-List", skill, false, true));
+    Object.values(ogcds).forEach(skill => addImageToList("OGCD-List", skill, false, false));
     roleSkills[jobID].forEach((skill) => {
         if (skill.ActionCategory.Name === "Ability") {
             addImageToList("Role-Skills-List", skill, false, false);
