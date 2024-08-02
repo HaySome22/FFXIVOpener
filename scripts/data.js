@@ -23,6 +23,7 @@ const gcdOverrides = [
     16483, //tsubame
     16485, //kaeshi goken
     16486, //kaeshi setsugekka
+    25782, //kaeshi namikiri
     36965, //tendo goken
     36966, //tendo midare
     36968, //tendo kaeshi
