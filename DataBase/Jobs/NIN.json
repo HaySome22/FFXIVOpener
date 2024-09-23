@@ -109,6 +109,50 @@
             "Recast": 2.12,
             "Range": 3,
             "Radius": 0
+        },
+        {
+            "ID": 1001,
+            "Name": "Fuma Shuriken",
+            "ImageName": "fuma_shuriken",
+            "Description": "",
+            "GlobalCoolDown": "GCD",
+            "Cast": 0,
+            "Recast": 1.5,
+            "Range": 20,
+            "Radius": 0
+        },
+        {
+            "ID": 1002,
+            "Name": "Raiton",
+            "ImageName": "raiton",
+            "Description": "",
+            "GlobalCoolDown": "GCD",
+            "Cast": 0,
+            "Recast": 1.5,
+            "Range": 20,
+            "Radius": 0
+        },
+        {
+            "ID": 1003,
+            "Name": "Suiton",
+            "ImageName": "suiton",
+            "Description": "",
+            "GlobalCoolDown": "GCD",
+            "Cast": 0,
+            "Recast": 1.5,
+            "Range": 20,
+            "Radius": 0
+        },
+        {
+            "ID": 1004,
+            "Name": "Hyosho Ranryu",
+            "ImageName": "hyosho_ranryu",
+            "Description": "",
+            "GlobalCoolDown": "GCD",
+            "Cast": 0,
+            "Recast": 1.5,
+            "Range": 25,
+            "Radius": 0
         }
     ],
     "UnderlevelGCD": [
